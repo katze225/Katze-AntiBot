@@ -1,0 +1,7 @@
+name: Katze-AntiBot
+version: '${project.version}'
+main: me.katze.AntiBot
+api-version: '1.16'
+authors: [katze225]
+description: AntiBot for your minecraft server
+website: https://github.com/katze225

@@ -1,0 +1,27 @@
+# https://github.com/katze225/AntiBot
+
+# Checks
+check:
+  # Check null brand
+  brand: true
+
+  # Check null locale
+  locale: true
+
+  # Check proxy
+  proxy: true
+
+proxy-list:
+  - "https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks5.txt"
+  - "https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks4.txt"
+  - "https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/http.txt"
+  - "https://api.openproxylist.xyz/socks5.txt"
+  - "https://api.openproxylist.xyz/socks4.txt"
+  - "https://api.openproxylist.xyz/http.txt"
+  - "https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/all/data.txt"
+
+message:
+  null-brand: "Похоже вы бот, причина: null brand"
+  null-locale: "Похоже вы бот, причина: null locale"
+  use-proxy: "Похоже вы бот, причина: proxy use"
+
