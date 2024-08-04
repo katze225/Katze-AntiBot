@@ -1,4 +1,4 @@
-## :globe_with_meridians: ProxyParser 
+## 🛡️ Katze-AntiBot 
 ### Features
 
 - Easy to use.
