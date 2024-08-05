@@ -17,7 +17,7 @@
 
 ### Permissions
 - katze-antibot.bypass - Bypasses all checks
-- katze-antibot.reload - Gives access to /katze-antibot reload
+- katze-antibot.admin - Gives access to /katze-antibot command
 
 ### Placeholders
 - %katze-antibot_code% - Return the captcha code
