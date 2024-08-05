@@ -14,7 +14,7 @@
 
 ### Commands
 - /katze-antibot reload - Reload configuration
-
+- /katze-antibot stats - View plugin stats
 ### Permissions
 - katze-antibot.bypass - Bypasses all checks
 - katze-antibot.admin - Gives access to /katze-antibot command
