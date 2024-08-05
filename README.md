@@ -17,6 +17,7 @@
 ### Placeholders
 - %katze-antibot_code% - Return captcha code
 ### Screenshots
--
+- ![Captcha](images/captcha.png)
+- ![Config](images/config.png)
 
 ##### :ghost: [by Katze](https://github.com/katze225 "by Katze")
