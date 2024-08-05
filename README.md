@@ -10,5 +10,6 @@
 
 ### Dependences
 - Paper 1.16.5+
+- PlaceholderAPI 2.11.6+
 
 ##### :ghost: [by Katze](https://github.com/katze225 "by Katze")
