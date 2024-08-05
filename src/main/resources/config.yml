@@ -23,13 +23,22 @@ check:
   captcha:
     enabled: true
     # Chars on captcha
-    chars: "ǫᴡᴇʀᴛʏᴜɪᴏᴘᴀꜱᴅꜰɢʜᴊᴋʟᴢxᴄᴠʙɴᴍ1234567890"
+    chars: "1234567890"
     # Char length
     length: 6
     # In sec
     time: 30
     # Attempts for captcha
     attempts: 3
+    # Confuses captcha
+    confused: true
+    # White list players
+    whitelist-always:
+      - "katze225"
+    # Indicate in minutes; if -1, it means disabled
+    whitelist-time: 120
+    # Give blindness effect
+    give-blindness: true
 
 message:
   null-locale: "&cПохоже вы бот, у вас отсутствует пакет локализации"

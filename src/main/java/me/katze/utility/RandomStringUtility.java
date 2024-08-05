@@ -15,4 +15,14 @@ public class RandomStringUtility {
 
         return result.toString();
     }
+    public static String replaceRandomCharacter(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+
+        Random random = new Random();
+        int index = random.nextInt(input.length());
+
+        return input.substring(0, index) + '_' + input.substring(index + 1);
+    }
 }

@@ -22,6 +22,7 @@ public class JoinListener implements Listener {
         if (locale == null && config.getBoolean("check.locale.enabled")) {
             player.kickPlayer(ColorUtility.getMsg(config.getString("message.null-locale")));
         }
+
         // Check proxy
         if (AntiBot.proxy.contains(ip)) {
             e.getPlayer().kickPlayer(ColorUtility.getMsg(config.getString("message.use-proxy")));
