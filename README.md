@@ -12,4 +12,11 @@
 - Paper 1.16.5+
 - PlaceholderAPI 2.11.6+ (optional)
 
+### Commands
+-
+### Placeholders
+- %katze-antibot_code% - Return captcha code
+### Screenshots
+-
+
 ##### :ghost: [by Katze](https://github.com/katze225 "by Katze")
