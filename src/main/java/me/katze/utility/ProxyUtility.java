@@ -19,7 +19,8 @@ public class ProxyUtility {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    ipList.add(line.trim());
+                    String ip = line.split(":")[0].trim();
+                    ipList.add(ip);
                 }
             }
         } catch (Exception e) {
@@ -29,3 +30,4 @@ public class ProxyUtility {
         return ipList;
     }
 }
+

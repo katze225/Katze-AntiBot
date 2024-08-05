@@ -8,25 +8,18 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.net.InetAddress;
 
 public class JoinListener implements Listener {
     private FileConfiguration config = AntiBot.getInstance().getConfig();
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
+    public void onLogin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        String brand = e.getPlayer().getClientBrandName();
-        String locale = e.getPlayer().getLocale();
+        String locale = player.getLocale();
+        String ip = String.valueOf(player.getAddress().getAddress()).replace("/", "");
 
-        InetAddress address = e.getPlayer().getAddress().getAddress();
-        String ip = address.getHostAddress();
-
-        if ((brand == null || brand == "") && config.getBoolean("check.brand")) {
-            e.getPlayer().kickPlayer(ColorUtility.getMsg(config.getString("message.null-brand")));
-        }
-        if ((locale == null || locale == "") && config.getBoolean("check.locale")) {
-            e.getPlayer().kickPlayer(ColorUtility.getMsg(config.getString("message.null-locale")));
+        if (locale == null && config.getBoolean("check.locale.enabled")) {
+            player.kickPlayer(ColorUtility.getMsg(config.getString("message.null-locale")));
         }
         if (AntiBot.proxy.contains(ip)) {
             e.getPlayer().kickPlayer(ColorUtility.getMsg(config.getString("message.use-proxy")));

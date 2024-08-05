@@ -2,26 +2,42 @@
 
 # Checks
 check:
-  # Check null brand
-  brand: true
 
   # Check null locale
-  locale: true
+  locale:
+    enabled: true
 
   # Check proxy
-  proxy: true
+  proxy:
+    enabled: true
+    list:
+      - "https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks5.txt"
+      - "https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks4.txt"
+      - "https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/http.txt"
+      - "https://api.openproxylist.xyz/socks5.txt"
+      - "https://api.openproxylist.xyz/socks4.txt"
+      - "https://api.openproxylist.xyz/http.txt"
+      - "https://tcpshield.com/blocklist.txt"
 
-proxy-list:
-  - "https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks5.txt"
-  - "https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks4.txt"
-  - "https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/http.txt"
-  - "https://api.openproxylist.xyz/socks5.txt"
-  - "https://api.openproxylist.xyz/socks4.txt"
-  - "https://api.openproxylist.xyz/http.txt"
-  - "https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/all/data.txt"
+  # Title captcha
+  captcha:
+    enabled: true
+    # Chars on captcha
+    chars: "ǫᴡᴇʀᴛʏᴜɪᴏᴘᴀꜱᴅꜰɢʜᴊᴋʟᴢxᴄᴠʙɴᴍ1234567890"
+    # Char length
+    length: 6
+    # In sec
+    time: 36
 
 message:
-  null-brand: "Похоже вы бот, причина: null brand"
-  null-locale: "Похоже вы бот, причина: null locale"
-  use-proxy: "Похоже вы бот, причина: proxy use"
+  null-locale: "&cПохоже вы бот, у вас отсутствует пакет локализации"
+  use-proxy: "&cВы используете прокси или впн!"
+  captcha-kick: "&cВы не прошли капчу!"
+  captcha-title: "&a{code}"
+  captcha-subtitle: "&fВведите код который отображается выше."
+  captcha-chat-notify: "&fВведите код, чтобы пройти капчу."
+  captcha-chat-deny: "&cНеправильный код, у вас осталось {attempts} попытки."
+  captcha-chat-well: "&aВы успешно решили капчу, удачной игры!"
+  captcha-chat-block: "&cПройдите капчу, чтобы делать это!"
+
 

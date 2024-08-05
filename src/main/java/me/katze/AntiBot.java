@@ -1,5 +1,6 @@
 package me.katze;
 
+import me.katze.listener.CaptchaListener;
 import me.katze.listener.JoinListener;
 import me.katze.utility.Metrics;
 import me.katze.utility.ProxyUtility;
@@ -14,7 +15,7 @@ public final class AntiBot extends JavaPlugin {
 
     private static AntiBot instance;
     private static final Logger LOGGER = Logger.getLogger("Katze-AntiBot");
-    private FileConfiguration config = AntiBot.getInstance().getConfig();
+    private FileConfiguration config;
 
     public static List<String> proxy = new ArrayList<>();
 
@@ -29,21 +30,21 @@ public final class AntiBot extends JavaPlugin {
         LOGGER.info("*/");
 
         LOGGER.info("Loading config...");
+        config = getConfig();
         loadConfig();
 
         LOGGER.info("Loading metrics...");
         Metrics metrics = new Metrics(this, pluginId);
 
-
         LOGGER.info("Loading proxy...");
-        for (String url : config.getStringList("proxy-list")) {
+        for (String url : config.getStringList("check.proxy.list")) {
             List<String> proxies = ProxyUtility.load(url);
             proxy.addAll(proxies);
         }
-        System.out.println("Loaded " + proxy.size() + " proxies.");
+        LOGGER.info("Loaded " + proxy.size() + " proxies.");
 
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
-
+        getServer().getPluginManager().registerEvents(new CaptchaListener(), this);
     }
 
     @Override
