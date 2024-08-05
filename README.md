@@ -1,27 +1,27 @@
 ## 🛡️ Katze-AntiBot 
-### Особенности
+### Features
 
-- Прост в использовании.
-- Высокая производительность.
-- Превосходная защита.
+- Easy to use.
+- High performance.
+- Best protection.
 
-### Использование
-`Добавьте .jar файл в папку plugins и запустите свой сервер.`
+### Usage
+`Add the .jar file to the plugins folder and start your server.`
 
-### Зависимости
+### Dependencies
 - Paper 1.16.5+
-- PlaceholderAPI 2.11.6+ (не обязательно)
+- PlaceholderAPI 2.11.6+ (additionally)
 
-### Команды
-- /katze-antibot reload - Перезагружает конфигурацию
+### Commands
+- /katze-antibot reload - Reload configuration
 
-### Разрешения
-- katze-antibot.bypass - Обходит все проверки
-- katze-antibot.reload - Даёт доступ к команде /katze-antibot reload
+### Permissions
+- katze-antibot.bypass - Bypasses all checks
+- katze-antibot.reload - Gives access to /katze-antibot reload
 
-### Плаесхолдеры
-- %katze-antibot_code% - Возвращяет код капчи
-### Скриншоты
+### Placeholders
+- %katze-antibot_code% - Return the captcha code
+### Screenshots
 - ![Captcha](images/captcha.png)
 - ![Config](images/config.png)
 
