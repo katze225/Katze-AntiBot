@@ -14,6 +14,9 @@
 
 ### Commands
 -
+### Permissions
+- katze-antibot.bypass - Bypass all check
+
 ### Placeholders
 - %katze-antibot_code% - Return captcha code
 ### Screenshots
