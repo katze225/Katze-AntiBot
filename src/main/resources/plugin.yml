@@ -6,3 +6,7 @@ authors: [katze225]
 description: AntiBot для вашего сервера minecraft.
 website: https://github.com/katze225
 softdepend: [PlaceholderAPI]
+commands:
+  katze-antibot:
+    description: Reloads the plugin
+    usage: /<command> reload

@@ -1,5 +1,6 @@
 package me.katze;
 
+import me.katze.command.ReloadCommand;
 import me.katze.listener.CaptchaListener;
 import me.katze.listener.JoinListener;
 import me.katze.utility.Metrics;
@@ -57,6 +58,8 @@ public final class AntiBot extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
         getServer().getPluginManager().registerEvents(new CaptchaListener(), this);
+
+        this.getCommand("katze-antibot").setExecutor(new ReloadCommand());
     }
 
     @Override
