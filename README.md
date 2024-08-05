@@ -13,9 +13,11 @@
 - PlaceholderAPI 2.11.6+ (optional)
 
 ### Commands
--
+- /katze-antibot reload - Reload config
+
 ### Permissions
 - katze-antibot.bypass - Bypass all check
+- katze-antibot.reload - Reload config
 
 ### Placeholders
 - %katze-antibot_code% - Return captcha code
