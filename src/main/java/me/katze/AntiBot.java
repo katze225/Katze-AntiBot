@@ -3,7 +3,9 @@ package me.katze;
 import me.katze.listener.CaptchaListener;
 import me.katze.listener.JoinListener;
 import me.katze.utility.Metrics;
+import me.katze.utility.PlaceholderHook;
 import me.katze.utility.ProxyUtility;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -33,6 +35,15 @@ public final class AntiBot extends JavaPlugin {
         config = getConfig();
         loadConfig();
 
+        LOGGER.info("Hooking PlaceholderAPI...");
+
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new PlaceholderHook(this).register();
+        } else {
+            LOGGER.warning("Error with hooking PlaceholderAPI!");
+        }
+
+
         LOGGER.info("Loading metrics...");
         Metrics metrics = new Metrics(this, pluginId);
 
@@ -56,6 +67,10 @@ public final class AntiBot extends JavaPlugin {
     public void loadConfig() {
         getConfig().options().copyDefaults(true);
         saveConfig();
+    }
+
+    public void reloadPlugin() {
+        reloadConfig();
     }
 
     public static AntiBot getInstance() {

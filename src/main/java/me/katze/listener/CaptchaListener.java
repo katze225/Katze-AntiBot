@@ -27,12 +27,15 @@ public class CaptchaListener implements Listener {
     private Map<Player, Integer> captchaAttempt = new HashMap<>();
     private Map<Player, Long> captchaPassed = new HashMap<>();
 
-    // TODO
+    public Map<Player, String> getOnCaptcha() {
+        return onCaptcha;
+    }
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
 
-        if (captchaPassed.containsKey(player)) {
+        if (captchaPassed.containsKey(player) && config.getInt("check.captcha.whitelist-time") != 0) {
             long timeSinceLastPass = System.currentTimeMillis() - captchaPassed.get(player);
 
             if (timeSinceLastPass < config.getInt("check.captcha.whitelist-time") * 60 * 1000) {
@@ -117,7 +120,7 @@ public class CaptchaListener implements Listener {
     }
 
 
-    // TODO
+
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent e) {
         Player player = e.getPlayer();
@@ -137,7 +140,7 @@ public class CaptchaListener implements Listener {
                         Bukkit.getScheduler().cancelTask(task.getTaskId());
                     }
 
-                    if (config.getInt("check.captcha.whitelist-time") != -1) {
+                    if (config.getInt("check.captcha.whitelist-time") != 0) {
                         captchaPassed.put(player, System.currentTimeMillis());
                     }
 
@@ -171,6 +174,15 @@ public class CaptchaListener implements Listener {
         Player player = e.getPlayer();
         if (onCaptcha.containsKey(player)) {
             e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerCommand(PlayerCommandPreprocessEvent e) {
+        Player player = e.getPlayer();
+        if (onCaptcha.containsKey(player)) {
+            e.setCancelled(true);
+            ColorUtility.getMsg(config.getString("message.captcha-chat-block"));
         }
     }
 

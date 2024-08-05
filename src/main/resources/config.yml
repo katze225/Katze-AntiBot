@@ -35,7 +35,7 @@ check:
     # White list players
     whitelist-always:
       - "katze225"
-    # Indicate in minutes; if -1, it means disabled
+    # Indicate in minutes; if 0, it means disabled
     whitelist-time: 120
     # Give blindness effect
     give-blindness: true
@@ -51,4 +51,8 @@ message:
   captcha-chat-well: "&aВы успешно решили капчу, удачной игры!"
   captcha-chat-block: "&cПройдите капчу, чтобы делать это!"
 
+  placeholder-code: "&a{code}"
+  placeholder-well: "&aВы решили капчу"
 
+  no-permission: "&cУ вас недостаточно прав для использования этой команды!"
+  reload-plugin: "&aПлагин успешно перезагружен!"

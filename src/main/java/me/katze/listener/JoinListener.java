@@ -19,12 +19,12 @@ public class JoinListener implements Listener {
         String ip = String.valueOf(player.getAddress().getAddress()).replace("/", "");
 
         // Check null locale
-        if (locale == null && config.getBoolean("check.locale.enabled")) {
+        if (locale == null && config.getBoolean("check.locale.enabled") && !player.hasPermission("katze-antibot.bypass")) {
             player.kickPlayer(ColorUtility.getMsg(config.getString("message.null-locale")));
         }
 
         // Check proxy
-        if (AntiBot.proxy.contains(ip)) {
+        if (AntiBot.proxy.contains(ip) && !player.hasPermission("katze-antibot.bypass")) {
             e.getPlayer().kickPlayer(ColorUtility.getMsg(config.getString("message.use-proxy")));
         }
     }

@@ -3,5 +3,6 @@ version: '${project.version}'
 main: me.katze.AntiBot
 api-version: '1.16'
 authors: [katze225]
-description: AntiBot for your minecraft server
+description: AntiBot для вашего сервера minecraft.
 website: https://github.com/katze225
+softdepend: [PlaceholderAPI]
