@@ -27,7 +27,9 @@ check:
     # Char length
     length: 6
     # In sec
-    time: 36
+    time: 30
+    # Attempts for captcha
+    attempts: 3
 
 message:
   null-locale: "&cПохоже вы бот, у вас отсутствует пакет локализации"

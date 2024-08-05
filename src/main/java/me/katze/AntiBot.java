@@ -41,6 +41,7 @@ public final class AntiBot extends JavaPlugin {
             List<String> proxies = ProxyUtility.load(url);
             proxy.addAll(proxies);
         }
+        
         LOGGER.info("Loaded " + proxy.size() + " proxies.");
 
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
