@@ -14,15 +14,17 @@
 
 ### Commands
 - /katze-antibot reload - Reload configuration
-
+- /katze-antibot stats - View plugin stats
 ### Permissions
 - katze-antibot.bypass - Bypasses all checks
-- katze-antibot.reload - Gives access to /katze-antibot reload
+- katze-antibot.admin - Gives access to /katze-antibot command
 
 ### Placeholders
 - %katze-antibot_code% - Return the captcha code
 ### Screenshots
 - ![Captcha](images/captcha.png)
 - ![Config](images/config.png)
+### License
+See the [LICENSE](LICENSE.md) file for license rights and limitations.
 
 ##### :ghost: [by Katze](https://github.com/katze225 "by Katze")
