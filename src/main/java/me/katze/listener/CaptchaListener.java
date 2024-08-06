@@ -29,7 +29,7 @@ public class CaptchaListener implements Listener {
     public static Map<Player, String> onCaptcha = new HashMap<>();
     public static Map<Player, BukkitTask> captchaTask = new HashMap<>();
     public static Map<Player, Integer> captchaAttempt = new HashMap<>();
-    public static Map<Player, LocalDateTime> captchaPassed = new HashMap<>();
+    public static Map<String, LocalDateTime> captchaPassed = new HashMap<>();
 
     public static int denyCaptcha = 0;
 
@@ -37,18 +37,28 @@ public class CaptchaListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
 
-        if (captchaPassed.containsKey(player)) {
-            LocalDateTime lastPassTime = captchaPassed.get(player);
-            LocalDateTime now = LocalDateTime.now();
-            long minutesSinceLastPass = java.time.Duration.between(lastPassTime, now).toMinutes();
-
-            if (minutesSinceLastPass < config.getInt("check.captcha.whitelist-time")) {
-                return;
-            }
-        }
-
         if (config.getBoolean("check.captcha.enabled")
                 && !player.hasPermission("katze-antibot.bypass")) {
+
+
+            if (captchaPassed.containsKey(player.getName())) {
+                LocalDateTime lastPassTime = captchaPassed.get(player.getName());
+                LocalDateTime now = LocalDateTime.now();
+                long minutesSinceLastPass = java.time.Duration.between(lastPassTime, now).toMinutes();
+                int whitelistTime = config.getInt("check.captcha.whitelist-time");
+
+                System.out.println("Minutes since last pass: " + minutesSinceLastPass);
+                System.out.println("Whitelist time: " + whitelistTime);
+
+                if (minutesSinceLastPass < whitelistTime) {
+                    return;
+                } else {
+                    captchaPassed.remove(player.getName());
+                    System.out.println("Player removed from captchaPassed");
+                }
+            }
+
+
             String random = RandomStringUtility.generateRandomString(config.getString("check.captcha.chars"), config.getInt("check.captcha.length"));
             onCaptcha.put(player, random);
             captchaAttempt.put(player, 3);
@@ -139,7 +149,7 @@ public class CaptchaListener implements Listener {
                     onCaptcha.remove(player);
                     captchaAttempt.remove(player);
 
-                    captchaPassed.put(player, LocalDateTime.now());
+                    captchaPassed.put(player.getName(), LocalDateTime.now());
 
                     BukkitTask task = captchaTask.remove(player);
                     if (task != null) {

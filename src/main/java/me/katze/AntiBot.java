@@ -74,6 +74,7 @@ public final class AntiBot extends JavaPlugin {
 
     public void reloadPlugin() {
         reloadConfig();
+        reloadConfig();
     }
 
     public static AntiBot getInstance() {
