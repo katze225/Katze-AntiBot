@@ -25,12 +25,7 @@ public class MainCommand implements CommandExecutor, TabCompleter {
             sender.sendMessage(ColorUtility.getMsg(config.getString("message.no-permission")));
             return true;
         }
-        if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
-            AntiBot.getInstance().reloadPlugin();
-            sender.sendMessage(ColorUtility.getMsg(config.getString("message.command-reload")));
-            return true;
-
-        } else if (args.length == 1 && args[0].equalsIgnoreCase("stats")) {
+        if (args.length == 1 && args[0].equalsIgnoreCase("stats")) {
 
             int onCaptchaPlayers = CaptchaListener.onCaptcha.size();
             int captchaPassedPlayers = CaptchaListener.captchaPassed.size();
