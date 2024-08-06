@@ -7,10 +7,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+
 import org.bukkit.event.Listener;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
+import litebans.api.Database;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.potion.PotionEffect;
@@ -47,14 +48,10 @@ public class CaptchaListener implements Listener {
                 long minutesSinceLastPass = java.time.Duration.between(lastPassTime, now).toMinutes();
                 int whitelistTime = config.getInt("check.captcha.whitelist-time");
 
-                System.out.println("Minutes since last pass: " + minutesSinceLastPass);
-                System.out.println("Whitelist time: " + whitelistTime);
-
                 if (minutesSinceLastPass < whitelistTime) {
                     return;
                 } else {
                     captchaPassed.remove(player.getName());
-                    System.out.println("Player removed from captchaPassed");
                 }
             }
 
@@ -139,7 +136,7 @@ public class CaptchaListener implements Listener {
     public void onPlayerChat(AsyncPlayerChatEvent e) {
         Player player = e.getPlayer();
         String message = e.getMessage();
-
+        
         if (onCaptcha.containsKey(player)) {
             e.setCancelled(true);
 
