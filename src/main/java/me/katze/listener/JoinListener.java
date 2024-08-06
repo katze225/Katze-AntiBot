@@ -27,7 +27,7 @@ public class JoinListener implements Listener {
 
         // Check null VIEW_DISTANCE
         if ((view_distance == 0 || String.valueOf(view_distance) == null) && config.getBoolean("check.locale.enabled") && !player.hasPermission("katze-antibot.bypass")) {
-            player.kickPlayer(ColorUtility.getMsg(config.getString("message.null-locale")));
+            player.kickPlayer(ColorUtility.getMsg(config.getString("message.null-view_distance")));
         }
 
         // Check proxy
