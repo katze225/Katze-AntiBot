@@ -24,9 +24,6 @@
 ### Screenshots
 - ![Captcha](images/captcha.png)
 - ![Config](images/config.png)
-### Screenshots
-- ![Captcha](images/captcha.png)
-- ![Config](images/config.png)
 ### License
 See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
 
