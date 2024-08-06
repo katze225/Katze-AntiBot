@@ -8,6 +8,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
@@ -20,31 +22,48 @@ import java.util.Map;
 
 
 public class CaptchaListener implements Listener {
+
+
     private FileConfiguration config = AntiBot.getInstance().getConfig();
 
-    private Map<Player, String> onCaptcha = new HashMap<>();
-    private Map<Player, BukkitTask> captchaTask = new HashMap<>();
-    private Map<Player, Integer> captchaAttempt = new HashMap<>();
-    private Map<Player, Long> captchaPassed = new HashMap<>();
+    public static Map<Player, String> onCaptcha = new HashMap<>();
+    public static Map<Player, BukkitTask> captchaTask = new HashMap<>();
+    public static Map<Player, Integer> captchaAttempt = new HashMap<>();
+    public static Map<Player, LocalDateTime> captchaPassed = new HashMap<>();
+
+    public static int denyCaptcha = 0;
 
     public Map<Player, String> getOnCaptcha() {
         return onCaptcha;
+    }
+
+    public Map<Player, BukkitTask> getCaptchaTask() {
+        return captchaTask;
+    }
+
+    public Map<Player, Integer> getCaptchaAttempt() {
+        return captchaAttempt;
+    }
+
+    public Map<Player, LocalDateTime> getCaptchaPassed() {
+        return captchaPassed;
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
 
-        if (captchaPassed.containsKey(player) && config.getInt("check.captcha.whitelist-time") != 0) {
-            long timeSinceLastPass = System.currentTimeMillis() - captchaPassed.get(player);
+        if (captchaPassed.containsKey(player)) {
+            LocalDateTime lastPassTime = captchaPassed.get(player);
+            LocalDateTime now = LocalDateTime.now();
+            long minutesSinceLastPass = java.time.Duration.between(lastPassTime, now).toMinutes();
 
-            if (timeSinceLastPass < config.getInt("check.captcha.whitelist-time") * 60 * 1000) {
+            if (minutesSinceLastPass < config.getInt("check.captcha.whitelist-time")) {
                 return;
             }
         }
 
         if (config.getBoolean("check.captcha.enabled")
-                && !config.getStringList("check.captcha.whitelist-always").contains(player.getName())
                 && !player.hasPermission("katze-antibot.bypass")) {
             String random = RandomStringUtility.generateRandomString(config.getString("check.captcha.chars"), config.getInt("check.captcha.length"));
             onCaptcha.put(player, random);
@@ -80,6 +99,7 @@ public class CaptchaListener implements Listener {
                         onCaptcha.remove(player);
                         captchaAttempt.remove(player);
                         player.kickPlayer(ColorUtility.getMsg(config.getString("message.captcha-kick")));
+                        denyCaptcha += 1;
                     }
                 }, config.getInt("check.captcha.time") * 20L);
             }
@@ -135,14 +155,13 @@ public class CaptchaListener implements Listener {
                     onCaptcha.remove(player);
                     captchaAttempt.remove(player);
 
+                    captchaPassed.put(player, LocalDateTime.now());
+
                     BukkitTask task = captchaTask.remove(player);
                     if (task != null) {
                         Bukkit.getScheduler().cancelTask(task.getTaskId());
                     }
 
-                    if (config.getInt("check.captcha.whitelist-time") != 0) {
-                        captchaPassed.put(player, System.currentTimeMillis());
-                    }
 
                     if (config.getBoolean("check.captcha.give-blindness")) {
                         player.removePotionEffect(PotionEffectType.BLINDNESS);
@@ -160,6 +179,7 @@ public class CaptchaListener implements Listener {
                         onCaptcha.remove(player);
                         captchaAttempt.remove(player);
                         player.kickPlayer(ColorUtility.getMsg(config.getString("message.captcha-kick")));
+                        denyCaptcha += 1;
                     } else {
                         player.sendMessage(ColorUtility.getMsg(config.getString("message.captcha-chat-deny").replace("{attempts}", Integer.toString(captchaAttempt.get(player)))));
                     }

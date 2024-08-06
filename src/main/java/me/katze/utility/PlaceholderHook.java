@@ -38,14 +38,13 @@ public class PlaceholderHook extends PlaceholderExpansion {
         return true;
     }
 
+
     @Override
     public String onRequest(OfflinePlayer player, String params) {
         if (params.equalsIgnoreCase("code")) {
-            CaptchaListener captchaListenerInstance = new CaptchaListener();
-            Map<Player, String> onCaptcha = captchaListenerInstance.getOnCaptcha();
 
-            if (onCaptcha.containsKey(player)) {
-                return ColorUtility.getMsg(config.getString("message.placeholder-code")).replace("{code}", onCaptcha.get(player));
+            if (CaptchaListener.onCaptcha.containsKey(player)) {
+                return ColorUtility.getMsg(config.getString("message.placeholder-code")).replace("{code}", CaptchaListener.onCaptcha.get(player));
             } else {
                 return ColorUtility.getMsg(config.getString("message.placeholder-well"));
             }

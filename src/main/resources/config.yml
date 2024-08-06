@@ -1,10 +1,14 @@
-# https://github.com/katze225/AntiBot
+# https://github.com/katze225/Katze-AntiBot
 
 # Checks
 check:
 
-  # Check null locale
+  # Check null LOCALE
   locale:
+    enabled: true
+
+  # Check null VIEW_DISTANCE
+  view-distance:
     enabled: true
 
   # Check proxy
@@ -32,9 +36,6 @@ check:
     attempts: 3
     # Confuses captcha
     confused: true
-    # White list players
-    whitelist-always:
-      - "katze225"
     # Indicate in minutes; if 0, it means disabled
     whitelist-time: 120
     # Give blindness effect
@@ -55,4 +56,9 @@ message:
   placeholder-well: "&aВы решили капчу"
 
   no-permission: "&cУ вас недостаточно прав для использования этой команды!"
-  reload-plugin: "&aПлагин успешно перезагружен!"
+
+  command-usage: "&fИспользуйте: &a/katze-antibot <reload/stats>"
+  command-reload: "&aПлагин успешно перезагружен!"
+  command-stats: "\n&fСтатистика:\n&fИгроков на капче: &e{onCaptcha}\n&fИгроков прошёдших капчу: &a{wellCaptcha}\n&fИгроков проваливших капчу: &c{denyCaptcha}\n&r"
+
+

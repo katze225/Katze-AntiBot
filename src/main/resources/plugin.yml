@@ -8,5 +8,6 @@ website: https://github.com/katze225
 softdepend: [PlaceholderAPI]
 commands:
   katze-antibot:
-    description: Reloads the plugin
-    usage: /<command> reload
+    description: Main Katze-AntiBot command
+    permission: katze-antibot.admin
+    aliases: [guard, antibot, katze]

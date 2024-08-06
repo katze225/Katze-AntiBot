@@ -16,10 +16,17 @@ public class JoinListener implements Listener {
     public void onLogin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
         String locale = player.getLocale();
+        int view_distance = player.getClientViewDistance();
+
         String ip = String.valueOf(player.getAddress().getAddress()).replace("/", "");
 
-        // Check null locale
-        if (locale == null && config.getBoolean("check.locale.enabled") && !player.hasPermission("katze-antibot.bypass")) {
+        // Check null LOCALE
+        if (locale.equals(null) && config.getBoolean("check.locale.enabled") && !player.hasPermission("katze-antibot.bypass")) {
+            player.kickPlayer(ColorUtility.getMsg(config.getString("message.null-locale")));
+        }
+
+        // Check null VIEW_DISTANCE
+        if ((view_distance == 0 || String.valueOf(view_distance) == null) && config.getBoolean("check.locale.enabled") && !player.hasPermission("katze-antibot.bypass")) {
             player.kickPlayer(ColorUtility.getMsg(config.getString("message.null-locale")));
         }
 
