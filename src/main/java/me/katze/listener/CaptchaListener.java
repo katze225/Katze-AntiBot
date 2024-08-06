@@ -33,22 +33,6 @@ public class CaptchaListener implements Listener {
 
     public static int denyCaptcha = 0;
 
-    public Map<Player, String> getOnCaptcha() {
-        return onCaptcha;
-    }
-
-    public Map<Player, BukkitTask> getCaptchaTask() {
-        return captchaTask;
-    }
-
-    public Map<Player, Integer> getCaptchaAttempt() {
-        return captchaAttempt;
-    }
-
-    public Map<Player, LocalDateTime> getCaptchaPassed() {
-        return captchaPassed;
-    }
-
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();

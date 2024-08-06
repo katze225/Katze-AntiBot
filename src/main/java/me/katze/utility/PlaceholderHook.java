@@ -5,9 +5,6 @@ import org.bukkit.OfflinePlayer;
 import me.katze.AntiBot;
 import me.katze.listener.CaptchaListener;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
-
-import java.util.Map;
 
 public class PlaceholderHook extends PlaceholderExpansion {
     private FileConfiguration config = AntiBot.getInstance().getConfig();
