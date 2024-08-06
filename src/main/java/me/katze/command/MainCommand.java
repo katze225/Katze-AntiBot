@@ -43,7 +43,6 @@ public class MainCommand implements CommandExecutor, TabCompleter {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         if (commandSender instanceof Player) {
             List<String> list = new ArrayList<>();
-            list.add("reload");
             list.add("stats");
             return list;
         }

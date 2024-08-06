@@ -13,7 +13,6 @@
 - PlaceholderAPI 2.11.6+ (additionally)
 
 ### Commands
-- /katze-antibot reload - Reload configuration
 - /katze-antibot stats - View plugin stats
 ### Permissions
 - katze-antibot.bypass - Bypasses all checks
