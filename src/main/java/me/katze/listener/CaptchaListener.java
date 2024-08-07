@@ -8,6 +8,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import java.time.LocalDateTime;
 
@@ -22,7 +23,6 @@ import java.util.Map;
 
 
 public class CaptchaListener implements Listener {
-
 
     private FileConfiguration config = AntiBot.getInstance().getConfig();
 
@@ -65,6 +65,7 @@ public class CaptchaListener implements Listener {
                     PotionEffect blindness = new PotionEffect(PotionEffectType.BLINDNESS, 1728000, 0);
                     player.addPotionEffect(blindness);
                 }
+                player.sendMessage(ColorUtility.getMsg(config.getString("message.captcha-chat-notify")));
 
                 BukkitTask task = Bukkit.getScheduler().runTaskTimer(AntiBot.getInstance(), new Runnable() {
                     @Override
@@ -135,7 +136,6 @@ public class CaptchaListener implements Listener {
     public void onPlayerChat(AsyncPlayerChatEvent e) {
         Player player = e.getPlayer();
         String message = e.getMessage();
-        
         if (onCaptcha.containsKey(player)) {
             e.setCancelled(true);
 
