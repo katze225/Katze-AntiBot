@@ -13,6 +13,7 @@ import org.bukkit.event.Listener;
 import java.time.LocalDateTime;
 
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -130,9 +131,16 @@ public class CaptchaListener implements Listener {
         }
     }
 
-
-
     @EventHandler
+    public void onInventoryOpenEvent(InventoryOpenEvent e) {
+        Player player = (Player) e.getPlayer();
+        if (onCaptcha.containsKey(player)) {
+            e.setCancelled(true);
+            ColorUtility.getMsg(config.getString("message.captcha-chat-block"));
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerChat(AsyncPlayerChatEvent e) {
         Player player = e.getPlayer();
         String message = e.getMessage();
