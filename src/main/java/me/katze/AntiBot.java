@@ -44,7 +44,6 @@ public final class AntiBot extends JavaPlugin {
             LOGGER.warning("Error with hooking PlaceholderAPI!");
         }
 
-
         LOGGER.info("Loading metrics...");
         Metrics metrics = new Metrics(this, pluginId);
 

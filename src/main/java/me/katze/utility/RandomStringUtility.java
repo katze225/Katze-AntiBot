@@ -1,8 +1,12 @@
 package me.katze.utility;
 
+import me.katze.AntiBot;
+import org.bukkit.configuration.file.FileConfiguration;
+
 import java.util.Random;
 
 public class RandomStringUtility {
+    private static FileConfiguration config = AntiBot.getInstance().getConfig();
 
     public static String generateRandomString(String source, int length) {
         Random random = new Random();
@@ -15,6 +19,7 @@ public class RandomStringUtility {
 
         return result.toString();
     }
+
     public static String replaceRandomCharacter(String input) {
         if (input == null || input.isEmpty()) {
             return input;
@@ -23,6 +28,6 @@ public class RandomStringUtility {
         Random random = new Random();
         int index = random.nextInt(input.length());
 
-        return input.substring(0, index) + '_' + input.substring(index + 1);
+        return input.substring(0, index) + config.getString("check.captcha.symbol", "_") + input.substring(index + 1);
     }
 }

@@ -22,12 +22,16 @@ check:
       - "https://api.openproxylist.xyz/socks4.txt"
       - "https://api.openproxylist.xyz/http.txt"
       - "https://tcpshield.com/blocklist.txt"
+      - "https://raw.githubusercontent.com/ErcinDedeoglu/proxies/main/proxies/socks4.txt"
+      - "https://raw.githubusercontent.com/ErcinDedeoglu/proxies/main/proxies/socks5.txt"
+      - "https://raw.githubusercontent.com/ErcinDedeoglu/proxies/main/proxies/http.txt"
+      - "https://raw.githubusercontent.com/ErcinDedeoglu/proxies/main/proxies/https.txt"
 
   # Title captcha
   captcha:
     enabled: true
     # Chars on captcha
-    chars: "1234567890"
+    chars: "qwertyuiopasdfghjklzxcvbnm1234567890"
     # Char length
     length: 6
     # In sec
@@ -36,6 +40,8 @@ check:
     attempts: 3
     # Confuses captcha
     confused: true
+    # Confuse symbol
+    symbol: "_"
     # Indicate in minutes; if 0, it means disabled
     whitelist-time: 120
     # Give blindness effect
