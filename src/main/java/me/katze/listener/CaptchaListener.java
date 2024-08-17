@@ -12,6 +12,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import java.time.LocalDateTime;
 
+import org.bukkit.event.entity.EntityTeleportEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.*;
@@ -218,6 +219,17 @@ public class CaptchaListener implements Listener {
         Player player = e.getPlayer();
         if (onCaptcha.containsKey(player)) {
             e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onTeleport(EntityTeleportEvent e) {
+        if (e.getEntity() instanceof Player) {
+            Player player = ((Player) e.getEntity()).getPlayer();
+
+            if (onCaptcha.containsKey(player)) {
+                e.setCancelled(true);
+            }
         }
     }
 }
