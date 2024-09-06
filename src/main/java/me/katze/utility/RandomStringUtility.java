@@ -25,9 +25,14 @@ public class RandomStringUtility {
             return input;
         }
 
+        // Random char
         Random random = new Random();
-        int index = random.nextInt(input.length());
+        int index1 = random.nextInt(input.length());
 
-        return input.substring(0, index) + config.getString("check.captcha.symbol", "_") + input.substring(index + 1);
+        // Random Symbol
+        int random2 = random.nextInt(config.getStringList("check.captcha.symbol").size());
+        String randomSymbol = config.getStringList("check.captcha.symbol").get(random2);
+
+        return input.substring(0, index1) + randomSymbol + input.substring(index1 + 1);
     }
 }

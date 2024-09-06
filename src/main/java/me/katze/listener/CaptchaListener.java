@@ -99,8 +99,6 @@ public class CaptchaListener implements Listener {
         }
     }
 
-
-
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
         Player player = e.getPlayer();

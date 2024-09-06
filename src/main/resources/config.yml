@@ -41,7 +41,7 @@ check:
     # Confuses captcha
     confused: true
     # Confuse symbol
-    symbol: "_"
+    symbol: ['_', '*', '#']
     # Indicate in minutes; if 0, it means disabled
     whitelist-time: 120
     # Give blindness effect
