@@ -2,7 +2,7 @@ package me.katze.listener;
 
 import me.katze.AntiBot;
 import me.katze.utility.ColorUtility;
-import me.katze.utility.RandomStringUtility;
+import me.katze.utility.StringUtility;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -35,12 +35,12 @@ public class CaptchaListener implements Listener {
 
     public static int denyCaptcha = 0;
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
 
         if (config.getBoolean("check.captcha.enabled")
-                && !player.hasPermission("katze-antibot.bypass")) {
+                && !config.getStringList("check.captcha.whitelist-players").contains(player.getName())) {
 
 
             if (captchaPassed.containsKey(player.getName())) {
@@ -56,14 +56,13 @@ public class CaptchaListener implements Listener {
                 }
             }
 
-
-            String random = RandomStringUtility.generateRandomString(config.getString("check.captcha.chars"), config.getInt("check.captcha.length"));
+            String random = StringUtility.generateString("ǫᴡᴇʀᴛʏᴜɪᴏᴘᴀꜱᴅꜰɢʜᴊᴋʟᴢxᴄᴠʙɴᴍ", config.getInt("check.captcha.length"));
             onCaptcha.put(player, random);
             captchaAttempt.put(player, 3);
 
             if (onCaptcha.containsKey(player)) {
 
-                if (config.getBoolean("check.captcha.give-blindness")) {
+                if (config.getBoolean("check.captcha.blindness")) {
                     PotionEffect blindness = new PotionEffect(PotionEffectType.BLINDNESS, 1728000, 0);
                     player.addPotionEffect(blindness);
                 }
@@ -74,7 +73,7 @@ public class CaptchaListener implements Listener {
                     public void run() {
                         String newRandom = random;
                         if (config.getBoolean("check.captcha.confused")) {
-                            newRandom = RandomStringUtility.replaceRandomCharacter(random);
+                            newRandom = StringUtility.replaceCharacter(random);
                         }
                         player.sendTitle(
                                 ColorUtility.getMsg(config.getString("message.captcha-title").replace("{code}", newRandom)),
@@ -99,7 +98,7 @@ public class CaptchaListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onMove(PlayerMoveEvent e) {
         Player player = e.getPlayer();
         if (onCaptcha.containsKey(player)) {
@@ -107,7 +106,7 @@ public class CaptchaListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onQuit(PlayerQuitEvent e) {
         Player player = e.getPlayer();
         if (onCaptcha.containsKey(player)) {
@@ -122,7 +121,7 @@ public class CaptchaListener implements Listener {
     }
 
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onInteract(PlayerInteractEvent e) {
         Player player = e.getPlayer();
         if (onCaptcha.containsKey(player)) {
@@ -130,7 +129,7 @@ public class CaptchaListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onInventoryOpenEvent(InventoryOpenEvent e) {
         Player player = (Player) e.getPlayer();
         if (onCaptcha.containsKey(player)) {
@@ -139,14 +138,16 @@ public class CaptchaListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerChat(AsyncPlayerChatEvent e) {
         Player player = e.getPlayer();
         String message = e.getMessage();
         if (onCaptcha.containsKey(player)) {
             e.setCancelled(true);
 
-            if (message.contains(onCaptcha.get(player))) {
+            String symbols = StringUtility.convertSymbols(onCaptcha.get(player));
+
+            if (message.contains(symbols)) {
                 Bukkit.getScheduler().runTask(AntiBot.getInstance(), () -> {
                     player.sendMessage(ColorUtility.getMsg(config.getString("message.captcha-chat-well")));
                     onCaptcha.remove(player);
@@ -160,7 +161,7 @@ public class CaptchaListener implements Listener {
                     }
 
 
-                    if (config.getBoolean("check.captcha.give-blindness")) {
+                    if (config.getBoolean("check.captcha.blindness")) {
                         player.removePotionEffect(PotionEffectType.BLINDNESS);
                     }
                 });

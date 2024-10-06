@@ -1,17 +1,9 @@
 # https://github.com/katze225/Katze-AntiBot
 
-# Checks
+# Проверки
 check:
 
-  # Check null LOCALE
-  locale:
-    enabled: true
-
-  # Check null VIEW_DISTANCE
-  view-distance:
-    enabled: true
-
-  # Check proxy
+  # Проверка на proxy
   proxy:
     enabled: true
     list:
@@ -27,30 +19,31 @@ check:
       - "https://raw.githubusercontent.com/ErcinDedeoglu/proxies/main/proxies/http.txt"
       - "https://raw.githubusercontent.com/ErcinDedeoglu/proxies/main/proxies/https.txt"
 
-  # Title captcha
+  # Title капча
   captcha:
     enabled: true
-    # Chars on captcha
-    chars: "qwertyuiopasdfghjklzxcvbnm1234567890"
-    # Char length
-    length: 6
-    # In sec
+    # Размер капчи
+    length: 4
+    # Время в секундах для решения капчи
     time: 30
-    # Attempts for captcha
+    # Попытки для решения капчи
     attempts: 3
-    # Confuses captcha
-    confused: true
-    # Confuse symbol
-    symbol: ['_', '*', '#']
-    # Indicate in minutes; if 0, it means disabled
-    whitelist-time: 120
-    # Give blindness effect
-    give-blindness: true
 
+    # Запутывать ли капчу
+    confused: true
+
+    # Сколько времени в минутах игроку не нужно будет проходить капчу
+    whitelist-time: 120
+    # Игроки которым не нужно будет проходить капчу
+    whitelist-players: ["Katze225", "Steve", "Gamer001"]
+
+    # Эффект слепоты
+    blindness: true
+
+# Сообщения плагина
 message:
-  null-locale: "&cПохоже вы бот, у вас отсутствует пакет локализации"
-  null-view_distance: "&cПохоже вы бот, у вас отсутствует пакет дистанции прорисовки"
-  use-proxy: "&cВы используете прокси или впн!"
+  use-proxy: "&cВы используете прокси!"
+  already-online: "&cВы уже находитесь на сервере!"
 
   captcha-kick: "&cВы не прошли капчу!"
   captcha-title: "&a{code}"
@@ -65,7 +58,7 @@ message:
 
   no-permission: "&cУ вас недостаточно прав для использования этой команды!"
 
-  command-usage: "&fИспользуйте: &a/katze-antibot <reload/stats>"
+  command-usage: "&fИспользуйте: &a/katze-antibot <stats>"
   command-stats: "\n&fСтатистика:\n&fИгроков на капче: &e{onCaptcha}\n&fИгроков прошёдших капчу: &a{wellCaptcha}\n&fИгроков проваливших капчу: &c{denyCaptcha}\n&r"
 
 
