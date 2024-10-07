@@ -1,8 +1,8 @@
 package me.katze;
 
-import me.katze.command.MainCommand;
-import me.katze.listener.CaptchaListener;
-import me.katze.listener.JoinListener;
+import co.aikar.commands.PaperCommandManager;
+import me.katze.command.*;
+import me.katze.listener.*;
 import me.katze.utility.Metrics;
 import me.katze.utility.PlaceholderHook;
 import me.katze.utility.ProxyUtility;
@@ -13,12 +13,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Logger;
 
 public final class AntiBot extends JavaPlugin {
-
     private String LOGO = "/*" +
-            "█▄▀ ▄▀█ ▀█▀ ▀█ █▀▀ ▄▄ ▄▀█ █▄░█ ▀█▀ █ █▄▄ █▀█ ▀█▀"
-            + "█░█ █▀█ ░█░ █▄ ██▄ ░░ █▀█ █░▀█ ░█░ █ █▄█ █▄█ ░█░"
-            + "*/";
+            "\n█▄▀ ▄▀█ ▀█▀ ▀█ █▀▀ ▄▄ ▄▀█ █▄░█ ▀█▀ █ █▄▄ █▀█ ▀█▀"
+            + "\n█░█ █▀█ ░█░ █▄ ██▄ ░░ █▀█ █░▀█ ░█░ █ █▄█ █▄█ ░█░"
+            + "\nhttps://t.me/katzeplugins"
+            + "\n*/";
     private int PLUGIN_ID = 22890;
+    public static String VERSION = "1.2-RELEASE";
 
     private static AntiBot instance;
     private ProxyUtility proxyUtility;
@@ -56,7 +57,10 @@ public final class AntiBot extends JavaPlugin {
     }
 
     public void loadCommands() {
-        this.getCommand("katze-antibot").setExecutor(new MainCommand());
+        PaperCommandManager commandManager = new PaperCommandManager(this.getInstance());
+
+        commandManager.registerCommand(new HelpCommand());
+        commandManager.registerCommand(new StatsCommand());
     }
 
     public void loadMetrics() {

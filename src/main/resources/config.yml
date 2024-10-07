@@ -1,4 +1,4 @@
-# https://github.com/katze225/Katze-AntiBot
+# https://github.com/katze225/Katze-AntiBot | https://t.me/katzeplugins
 
 # Проверки
 check:
@@ -61,4 +61,10 @@ message:
   command-usage: "&fИспользуйте: &a/katze-antibot <stats>"
   command-stats: "\n&fСтатистика:\n&fИгроков на капче: &e{onCaptcha}\n&fИгроков прошёдших капчу: &a{wellCaptcha}\n&fИгроков проваливших капчу: &c{denyCaptcha}\n&r"
 
+  command-help:
+    - "\n"
+    - "&bKatze-AntiBot {version}: "
+    - "&b/antibot help &7- &fСписок команд"
+    - "&b/antibot stats &7- &fСтатистика плагина"
+    - "\n"
 

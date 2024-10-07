@@ -64,6 +64,10 @@
           <id>sonatype</id>
           <url>https://oss.sonatype.org/content/groups/public/</url>
       </repository>
+      <repository>
+          <id>aikar</id>
+          <url>https://repo.aikar.co/content/groups/aikar/</url>
+      </repository>
   </repositories>
 
   <dependencies>
@@ -80,9 +84,9 @@
           <scope>provided</scope>
       </dependency>
       <dependency>
-          <groupId>org.json</groupId>
-          <artifactId>json</artifactId>
-          <version>20240303</version>
+          <groupId>co.aikar</groupId>
+          <artifactId>acf-paper</artifactId>
+          <version>0.5.1-SNAPSHOT</version>
       </dependency>
   </dependencies>
 </project>

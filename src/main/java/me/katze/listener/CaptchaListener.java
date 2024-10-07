@@ -39,17 +39,16 @@ public class CaptchaListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
 
-        if (config.getBoolean("check.captcha.enabled")
-                && !config.getStringList("check.captcha.whitelist-players").contains(player.getName())) {
+        if (config.getBoolean("check.captcha.enabled")) {
 
+            if (config.getStringList("check.captcha.whitelist-players").contains(player.getName())) return;
 
             if (captchaPassed.containsKey(player.getName())) {
-                LocalDateTime lastPassTime = captchaPassed.get(player.getName());
+                LocalDateTime last = captchaPassed.get(player.getName());
                 LocalDateTime now = LocalDateTime.now();
-                long minutesSinceLastPass = java.time.Duration.between(lastPassTime, now).toMinutes();
-                int whitelistTime = config.getInt("check.captcha.whitelist-time");
+                long minutes = java.time.Duration.between(last, now).toMinutes();
 
-                if (minutesSinceLastPass < whitelistTime) {
+                if (minutes < config.getInt("check.captcha.whitelist-time")) {
                     return;
                 } else {
                     captchaPassed.remove(player.getName());
@@ -61,7 +60,6 @@ public class CaptchaListener implements Listener {
             captchaAttempt.put(player, 3);
 
             if (onCaptcha.containsKey(player)) {
-
                 if (config.getBoolean("check.captcha.blindness")) {
                     PotionEffect blindness = new PotionEffect(PotionEffectType.BLINDNESS, 1728000, 0);
                     player.addPotionEffect(blindness);
@@ -203,7 +201,6 @@ public class CaptchaListener implements Listener {
             ColorUtility.getMsg(config.getString("message.captcha-chat-block"));
         }
     }
-
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
