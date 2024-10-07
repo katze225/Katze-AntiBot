@@ -1,14 +1,17 @@
 package me.katze.utility;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import me.katze.AntiBot;
 import me.katze.listener.CaptchaListener;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.logging.Logger;
+
 public class PlaceholderHook extends PlaceholderExpansion {
     private FileConfiguration config = AntiBot.getInstance().getConfig();
-
+    private static final Logger LOGGER = Logger.getLogger("Katze-AntiBot");
     private final AntiBot plugin;
 
     public PlaceholderHook(AntiBot plugin) {
@@ -34,7 +37,6 @@ public class PlaceholderHook extends PlaceholderExpansion {
     public boolean persist() {
         return true;
     }
-
 
     @Override
     public String onRequest(OfflinePlayer player, String params) {

@@ -1,5 +1,6 @@
 package me.katze.utility;
 
+import me.katze.AntiBot;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -8,26 +9,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProxyUtility {
-    public static List<String> load(String link) {
+    private static List<String> proxy = new ArrayList<>();
+
+    private void load() {
         List<String> ipList = new ArrayList<>();
 
-        try {
-            URL url = new URL(link);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
+        for (String url : AntiBot.getInstance().getConfig().getStringList("check.proxy.list")) {
+            try {
+                URL link = new URL(url);
+                HttpURLConnection connection = (HttpURLConnection) link.openConnection();
+                connection.setRequestMethod("GET");
 
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    String ip = line.split(":")[0].trim();
-                    ipList.add(ip);
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        String ip = line.split(":")[0].trim();
+                        ipList.add(ip);
+                    }
                 }
+            } catch (Exception e) {
+                throw new RuntimeException("Cannot load from: " + url);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+        proxy.addAll(ipList);
+    }
 
-        return ipList;
+    public ProxyUtility() {
+        load();
+    }
+
+    public boolean isProxy(String ip) {
+        return proxy.contains(ip);
+    }
+
+    public Integer getCount() {
+        return proxy.size();
     }
 }
 

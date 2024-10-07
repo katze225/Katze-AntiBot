@@ -10,55 +10,39 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 public final class AntiBot extends JavaPlugin {
 
+    private String LOGO = "/*" +
+            "█▄▀ ▄▀█ ▀█▀ ▀█ █▀▀ ▄▄ ▄▀█ █▄░█ ▀█▀ █ █▄▄ █▀█ ▀█▀"
+            + "█░█ █▀█ ░█░ █▄ ██▄ ░░ █▀█ █░▀█ ░█░ █ █▄█ █▄█ ░█░"
+            + "*/";
+    private int PLUGIN_ID = 22890;
+
     private static AntiBot instance;
+    private ProxyUtility proxyUtility;
     private static final Logger LOGGER = Logger.getLogger("Katze-AntiBot");
     private FileConfiguration config;
-
-    public static List<String> proxy = new ArrayList<>();
 
     @Override
     public void onEnable() {
         instance = this;
-        int pluginId = 22890;
-
-        LOGGER.info("/*");
-        LOGGER.info("█▄▀ ▄▀█ ▀█▀ ▀█ █▀▀ ▄▄ ▄▀█ █▄░█ ▀█▀ █ █▄▄ █▀█ ▀█▀");
-        LOGGER.info("█░█ █▀█ ░█░ █▄ ██▄ ░░ █▀█ █░▀█ ░█░ █ █▄█ █▄█ ░█░");
-        LOGGER.info("*/");
-
-        LOGGER.info("Loading config...");
         config = getConfig();
+
+        LOGGER.info(LOGO);
+
         loadConfig();
 
-        LOGGER.info("Hooking PlaceholderAPI...");
+        loadPlaceholderAPI();
 
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new PlaceholderHook(this).register();
-        } else {
-            LOGGER.warning("Error with hooking PlaceholderAPI!");
-        }
+        loadProxy();
 
-        LOGGER.info("Loading metrics...");
-        Metrics metrics = new Metrics(this, pluginId);
+        loadMetrics();
 
-        LOGGER.info("Loading proxy...");
-        for (String url : config.getStringList("check.proxy.list")) {
-            List<String> proxies = ProxyUtility.load(url);
-            proxy.addAll(proxies);
-        }
-        
-        LOGGER.info("Loaded " + proxy.size() + " proxies.");
+        loadListeners();
 
-        getServer().getPluginManager().registerEvents(new JoinListener(), this);
-        getServer().getPluginManager().registerEvents(new CaptchaListener(), this);
-
-        this.getCommand("katze-antibot").setExecutor(new MainCommand());
+        loadCommands();
     }
 
     @Override
@@ -66,14 +50,47 @@ public final class AntiBot extends JavaPlugin {
         LOGGER.info("Shutdown...");
     }
 
+    public void loadListeners() {
+        getServer().getPluginManager().registerEvents(new JoinListener(), this);
+        getServer().getPluginManager().registerEvents(new CaptchaListener(), this);
+    }
+
+    public void loadCommands() {
+        this.getCommand("katze-antibot").setExecutor(new MainCommand());
+    }
+
+    public void loadMetrics() {
+        LOGGER.info("Loading metrics...");
+        Metrics metrics = new Metrics(this, PLUGIN_ID);
+    }
+
+    public void loadPlaceholderAPI() {
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            LOGGER.info("Hooking PlaceholderAPI...");
+            new PlaceholderHook(this).register();
+        } else {
+            LOGGER.warning("Error with hooking PlaceholderAPI!");
+        }
+    }
+
+    public void loadProxy() {
+        LOGGER.info("Loading proxy...");
+        proxyUtility = new ProxyUtility();
+
+        LOGGER.info("Loaded " + proxyUtility.getCount() + " proxies.");
+    }
+
     public void loadConfig() {
+        LOGGER.info("Loading config...");
         getConfig().options().copyDefaults(true);
         saveConfig();
     }
-
 
     public static AntiBot getInstance() {
         return instance;
     }
 
+    public ProxyUtility getProxyUtility() {
+        return proxyUtility;
+    }
 }
