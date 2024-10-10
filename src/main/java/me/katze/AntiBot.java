@@ -16,10 +16,10 @@ public final class AntiBot extends JavaPlugin {
     private String LOGO = "/*" +
             "\n█▄▀ ▄▀█ ▀█▀ ▀█ █▀▀ ▄▄ ▄▀█ █▄░█ ▀█▀ █ █▄▄ █▀█ ▀█▀"
             + "\n█░█ █▀█ ░█░ █▄ ██▄ ░░ █▀█ █░▀█ ░█░ █ █▄█ █▄█ ░█░"
-            + "\nhttps://t.me/katzeplugins"
+            + "\nhttps://github.com/katze225"
             + "\n*/";
     private int PLUGIN_ID = 22890;
-    public static String VERSION = "1.2-RELEASE";
+    public static String VERSION = "1.3-RELEASE";
 
     private static AntiBot instance;
     private ProxyUtility proxyUtility;
