@@ -13,13 +13,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Logger;
 
 public final class AntiBot extends JavaPlugin {
-    private String LOGO = "/*" +
+    private static final String LOGO = "/*" +
             "\n█▄▀ ▄▀█ ▀█▀ ▀█ █▀▀ ▄▄ ▄▀█ █▄░█ ▀█▀ █ █▄▄ █▀█ ▀█▀"
             + "\n█░█ █▀█ ░█░ █▄ ██▄ ░░ █▀█ █░▀█ ░█░ █ █▄█ █▄█ ░█░"
-            + "\nhttps://github.com/katze225"
+            + "\nhttps://discord.gg/6wGy3sYxzw"
             + "\n*/";
-    private int PLUGIN_ID = 22890;
-    public static String VERSION = "1.3-RELEASE";
+    private static final int PLUGIN_ID = 22890;
+    public static final String VERSION = "1.3-RELEASE";
 
     private static AntiBot instance;
     private ProxyUtility proxyUtility;
